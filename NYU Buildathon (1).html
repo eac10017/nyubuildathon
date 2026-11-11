@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NYU Buildathon</title>
+<style>
+:root{
+  --sky1:#bfe3f7;--sky2:#eaf6fc;--sea1:#2f8fbf;--sea2:#14587f;--wave:#ffffff;
+  --abyss:#0e4a68;--fish:#c9f7ff;--sand:#0a3447;--sand2:#12546d;--coral:#093044;--ink:#1d3a4d;--cloud:#ffffff;--metal:#0a1620;--rope:#c8a46a;--pill:rgba(255,255,255,.85);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --sky1:#0b1a33;--sky2:#2a3f66;--sea1:#14406a;--sea2:#07182c;--wave:#9cc4e4;
+    --abyss:#030a16;--fish:#7fc4d6;--sand:#01040a;--sand2:#04101f;--coral:#0a2f4d;--ink:#e8f1f8;--cloud:#5b6f94;--metal:#c4ced8;--rope:#d8b87a;--pill:rgba(11,26,51,.8);
+  }
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0}
+body{background:var(--sky1);font-family:Georgia,"Times New Roman",serif;color:var(--ink)}
+.track{height:900vh}
+.scene{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+.hint{position:absolute;left:0;right:0;bottom:calc(12% + env(safe-area-inset-bottom,0px));text-align:center;font-style:italic;z-index:2;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.35);animation:nudge 2s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(6px)}}
+.cap{position:absolute;left:30%;right:0;top:44%;text-align:center;font-size:clamp(1.4rem,4vw,2.6rem);letter-spacing:.05em;color:#eaf6fc;opacity:0;z-index:2}
+.bub{fill:none;stroke:var(--wave);stroke-width:2;animation:rise 7s linear infinite}
+@keyframes rise{from{transform:translateY(0);opacity:.6}to{transform:translateY(-140px);opacity:0}}
+h1{position:absolute;left:0;right:0;top:5%;margin:0;text-align:center;font-weight:400;font-size:clamp(1.8rem,5vw,3.4rem);letter-spacing:.06em;z-index:2}
+p.sub{position:absolute;left:0;right:0;top:calc(5% + clamp(2.6rem,6.5vw,4.6rem));margin:0;text-align:center;font-style:italic;opacity:.8;font-size:clamp(.9rem,1.8vw,1.2rem);z-index:2}
+svg{position:absolute;inset:0;width:100%;height:100%}
+nav{position:absolute;left:0;right:0;bottom:calc(4% + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:2}
+nav a{padding:8px 18px;border-radius:999px;background:var(--pill);color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem;transition:transform .2s}
+nav a:hover{transform:translateY(-2px)}
+.bob{animation:bob 5s ease-in-out infinite;transform-origin:500px 410px}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-.8deg)}50%{transform:translateY(8px) rotate(.8deg)}}
+.swing{animation:swing 3.2s ease-in-out infinite;transform-origin:312px 313px}
+@keyframes swing{0%,100%{transform:rotate(calc(var(--a,7)*-1deg))}50%{transform:rotate(calc(var(--a,7)*1deg))}}
+
+.bob2{animation:bob2 5s ease-in-out infinite;transform-origin:500px 410px}
+@keyframes bob2{0%,100%{transform:translateY(0) rotate(calc(var(--b,1)*-.8deg))}50%{transform:translateY(calc(var(--b,1)*8px)) rotate(calc(var(--b,1)*.8deg))}}
+.drift{animation:drift 60s linear infinite}
+@keyframes drift{from{transform:translateX(-120px)}to{transform:translateX(1100px)}}
+.wave1{animation:w 6s ease-in-out infinite}
+.wave2{animation:w 8s ease-in-out infinite reverse}
+@keyframes w{0%,100%{transform:translateX(-20px)}50%{transform:translateX(20px)}}
+.school{animation:school 9s ease-in-out infinite alternate}
+@keyframes school{to{transform:translate(-50px,-18px)}}
+.kelp{transform-box:fill-box;transform-origin:50% 100%;animation:sway 4s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="track"><div class="scene">
+  <h1 id="ttl">NYU Buildathon</h1>
+  <p class="sub" id="sub">All hands on deck. Build something great.</p>
+  <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMax slice" role="img" aria-label="A fishing boat floating on the sea with an anchor hanging from its bow">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sky1)"/><stop offset="1" style="stop-color:var(--sky2)"/></linearGradient>
+      <linearGradient id="surf" gradientUnits="userSpaceOnUse" x1="0" y1="410" x2="0" y2="560"><stop offset="0" style="stop-color:var(--sea1);stop-opacity:.8"/><stop offset="1" style="stop-color:var(--sea1);stop-opacity:0"/></linearGradient>
+      <linearGradient id="deep" gradientUnits="userSpaceOnUse" x1="0" y1="410" x2="0" y2="2110"><stop offset="0" style="stop-color:var(--sea1)"/><stop offset=".3" style="stop-color:var(--sea2)"/><stop offset="1" style="stop-color:var(--abyss)"/></linearGradient>
+    <path id="fs" d="M0 12C7 3 24 0 40 8L58 0C54 7 54 17 58 24L40 16C24 24 7 21 0 12Z"/>
+      <path id="st" d="M0-22L6-7 22-6 10 4 14 20 0 11-14 20-10 4-22-6-6-7Z"/>
+    </defs>
+    <g id="cam">
+    <rect x="-500" y="-700" width="2000" height="1115" fill="url(#sky)"/>
+    <rect x="-500" y="410" width="2000" height="1700" fill="url(#deep)"/>
+    <ellipse cx="640" cy="1230" rx="430" ry="250" fill="#fff" opacity=".05"/>
+    <ellipse cx="260" cy="1400" rx="300" ry="200" fill="#fff" opacity=".04"/>
+    <g id="fish" fill="var(--fish)"></g>
+    <g id="bubs"></g>
+    <g class="drift" fill="var(--cloud)" opacity=".9">
+      <path d="M60 190q10-26 40-20 14-22 44-8 30-4 32 18 24 2 22 22H60q-18-2 0-12z"/>
+    </g>
+
+    <g class="bob">
+      <g transform="translate(290 108) scale(.62)">
+        <!-- rigging -->
+        <g stroke="#6f8a96" stroke-width="1.2" fill="none">
+          <path d="M190 25L30 305M200 28L365 242M200 28L310 375M608 135L565 240M608 135L660 380M620 135L680 380"/>
+        </g>
+        <!-- front mast tripod -->
+        <rect x="180" y="12" width="12" height="365" fill="#5b5f7a"/>
+        <path d="M190 22L58 325M196 22L332 375" stroke="#4a4d6e" stroke-width="9" fill="none"/>
+        <rect x="177" y="8" width="18" height="12" rx="3" fill="#3d3f55"/>
+        <!-- rear mast -->
+        <rect x="604" y="125" width="12" height="262" fill="#b9bcc4"/>
+        <rect x="556" y="182" width="112" height="12" rx="6" fill="#b9bcc4" stroke="#8f939c"/>
+        <!-- crates -->
+        <rect x="255" y="376" width="125" height="28" fill="#c6c7cb"/>
+        <rect x="338" y="365" width="42" height="40" fill="#6b9ccc"/>
+        <rect x="594" y="383" width="122" height="44" fill="#6b9ccc"/>
+        <!-- cabin -->
+        <rect x="370" y="252" width="215" height="170" fill="#e9e6d9"/>
+        <rect x="380" y="361" width="195" height="22" fill="#ee7a4e"/>
+        <rect x="363" y="242" width="225" height="14" fill="#d3d4c4" stroke="#a9aa9b"/>
+        <rect x="392" y="275" width="44" height="61" rx="9" fill="#2f3033" stroke="#9a9a9a" stroke-width="5"/>
+        <rect x="525" y="275" width="44" height="61" rx="9" fill="#2f3033" stroke="#9a9a9a" stroke-width="5"/>
+        <rect x="447" y="275" width="66" height="140" rx="18" fill="#d9d9cf" stroke="#9a9a8e" stroke-width="2"/>
+        <!-- hull -->
+        <path d="M38 358C200 415 400 440 726 445L722 520Q720 528 700 528H130Q112 526 105 515Z" fill="#0f4a6e"/>
+        <path d="M105 515Q112 526 130 528H700Q720 528 722 520L724 490C500 500 250 490 95 478Z" fill="#0b3a58"/>
+        <path d="M12 298C150 385 330 410 728 428L726 445C400 440 200 415 38 358Z" fill="#ece8d8" stroke="#c4c0ae" stroke-width="2"/>
+        <!-- life rings -->
+        <g fill="none">
+          <circle cx="222" cy="428" r="24" stroke="#ee6a3a" stroke-width="11"/>
+          <circle cx="222" cy="428" r="24" stroke="#fff" stroke-width="11" stroke-dasharray="14 33"/>
+          <circle cx="302" cy="438" r="27" stroke="#ee6a3a" stroke-width="11"/>
+          <circle cx="302" cy="438" r="27" stroke="#fff" stroke-width="11" stroke-dasharray="14 42"/>
+        </g>
+      </g>
+
+</g>
+      <g class="bob2"><g class="swing">
+        <circle cx="312" cy="313" r="5" fill="var(--metal)"/>
+        <line id="rope" x1="312" y1="313" x2="312" y2="339" stroke="var(--rope)" stroke-width="4" stroke-dasharray="6 3"/>
+        <g id="drop"><g class="anchor" fill="none" stroke="var(--metal)" stroke-width="4.5" stroke-linecap="round">
+          <circle cx="312" cy="346" r="6"/>
+          <line x1="312" y1="352" x2="312" y2="391"/>
+          <line x1="300" y1="362" x2="324" y2="362"/>
+          <path d="M290 376Q294 396 312 396Q330 396 334 376"/>
+          <path d="M290 376l-5-2M334 376l5-2"/>
+        </g></g>
+      </g>
+    </g>
+
+    <!-- water -->
+    <g style="pointer-events:none">
+      <rect x="-500" y="410" width="2000" height="150" fill="url(#surf)"/>
+      <g><circle class="bub" cx="220" cy="900" r="6"/><circle class="bub" cx="430" cy="1000" r="4" style="animation-delay:-2s"/><circle class="bub" cx="610" cy="850" r="8" style="animation-delay:-4s"/><circle class="bub" cx="780" cy="1020" r="5" style="animation-delay:-1s"/><circle class="bub" cx="140" cy="1080" r="5" style="animation-delay:-5s"/><circle class="bub" cx="880" cy="930" r="7" style="animation-delay:-3s"/></g>
+      <path id="wb" fill="none" stroke="var(--wave)" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+      <path id="wm" fill="none" stroke="var(--wave)" stroke-width="2" stroke-linecap="round" opacity=".3"/>
+      <g class="wave1" fill="none" stroke="var(--wave)" stroke-width="3" stroke-linecap="round" opacity=".8">
+        <path d="M-40 414q25-14 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0"/>
+      </g>
+      <g class="wave2" fill="none" stroke="var(--wave)" stroke-width="2" stroke-linecap="round" opacity=".5">
+        <path d="M-40 460q20-10 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0"/>
+        <path d="M-40 560q20-10 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0"/>
+      </g>
+    </g>
+    <g id="fg">
+      <path d="M-500 1860C-300 1835 -50 1840 200 1900S500 1905 560 1880S800 1830 1000 1850S1300 1860 1500 1840V2200H-500Z" fill="var(--sand2)"/>
+      <g fill="none" stroke="var(--coral)" stroke-linecap="round" stroke-width="14">
+        <path d="M110 1905V1800M110 1860L78 1826M110 1838L144 1796M144 1796V1768M78 1826V1798"/>
+        <path d="M200 1905V1850M200 1878L180 1858M200 1868L222 1846" stroke-width="10"/>
+        <path d="M800 1905V1790M800 1850L764 1812M800 1830L836 1790M836 1790L840 1764M764 1812L760 1786M800 1810L792 1780"/>
+        <path d="M870 1905V1840M870 1870L850 1848M870 1860L894 1838" stroke-width="10"/>
+      </g>
+      <g fill="var(--coral)"><path d="M560 1905C556 1850 590 1824 624 1842C640 1806 700 1812 702 1856C734 1860 740 1905 740 1905Z"/><circle cx="480" cy="1892" r="20"/></g>
+      <g transform="translate(520 1900)"><path class="kelp" d="M0 0C-12-30 12-60 0-90S-12-150 0-170" fill="none" stroke="var(--coral)" stroke-width="10" stroke-linecap="round"/></g>
+      <g transform="translate(935 1900)"><path class="kelp" d="M0 0C-12-30 12-60 0-90S-12-150 0-170" fill="none" stroke="var(--coral)" stroke-width="10" stroke-linecap="round"/></g>
+      <path d="M-500 1890C-100 1860 150 1895 380 1892S700 1870 1000 1888S1300 1895 1500 1875V2200H-500Z" fill="var(--sand)"/>
+      <g stroke-linejoin="round" stroke-width="6">
+        <use href="#st" fill="#f08a5d" stroke="#f08a5d" transform="translate(430 1918) rotate(15) scale(1.2)"/>
+        <use href="#st" fill="#e86a8a" stroke="#e86a8a" transform="translate(640 1940) rotate(-20) scale(.95)"/>
+        <use href="#st" fill="#f5b04c" stroke="#f5b04c" transform="translate(170 1936) rotate(40) scale(.8)"/>
+        <use href="#st" fill="#f08a5d" stroke="#f08a5d" transform="translate(880 1930) rotate(-8) scale(.7)"/>
+      </g>
+    </g>
+    </g>
+  </svg>
+  <div class="hint" id="hint">Scroll to dive ↓</div><div class="cap" id="cap">Welcome to the deep end.</div>
+  <nav><a href="#home">Home</a><a href="#about">About</a><a href="#schedule">Schedule</a><a href="#contact">Contact</a></nav>
+</div></div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var cam=$('cam'),drop=$('drop'),rope=$('rope'),ttl=$('ttl'),sub=$('sub'),hint=$('hint'),cap=$('cap'),sw=document.querySelector('.swing'),anc=document.querySelector('.anchor'),bob2=document.querySelector('.bob2');
+  var target=0,cur=0;
+  var CS=[[0,0],[.18,520],[.38,520],[.54,1000],[.72,1000],[.93,1390],[1,1390]];
+  var DS=[[0,0],[.18,504],[.38,560],[.54,860],[.72,900],[1,1460,1]];
+  function iv(S,p){for(var i=1;i<S.length;i++){if(p<=S[i][0]){var a=S[i-1],b=S[i],t=cl((p-a[0])/(b[0]-a[0]));t=b[2]?1-Math.pow(1-t,3):sm(t);return a[1]+(b[1]-a[1])*t}}return S[S.length-1][1]}
+  var cl=function(x){return Math.min(1,Math.max(0,x))},sm=function(x){x=cl(x);return x*x*(3-2*x)};
+  function wave(y,a,w){return 'M-40 '+y+'q'+w/2+' -'+a+' '+w+' 0'+('t'+w+' 0').repeat(Math.ceil(1100/w))}
+  $('wb').setAttribute('d',wave(2050,10,40));
+  $('wm').setAttribute('d',wave(760,8,60));
+  var NS='http://www.w3.org/2000/svg',seed=7;
+  function rnd(){seed=seed*16807%2147483647;return seed/2147483647}
+  function mk(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+  function school(x0,y0,n,sc,op){var g=mk('g',{'class':'school',opacity:op});
+    for(var i=0;i<n;i++){var t=rnd(),s=sc*(.5+rnd()*1.1);
+      g.appendChild(mk('use',{href:'#fs',transform:'translate('+(x0+t*700+(rnd()-.5)*170)+' '+(y0+t*150+(rnd()-.5)*190)+') rotate('+(14+rnd()*10)+') scale('+s+')'}))}
+    $('fish').appendChild(g)}
+  school(20,1250,26,1.15,.95);school(300,1330,12,.65,.5);
+  var B=$('bubs');for(var i=0;i<22;i++){B.appendChild(mk('circle',{'class':'bub',cx:rnd()*1000,cy:560+rnd()*1300,r:3+rnd()*5,style:'animation-delay:-'+(rnd()*7)+'s'}))}
+  function read(){var m=document.documentElement.scrollHeight-innerHeight;target=m>0?cl(scrollY/m):0}
+  addEventListener('scroll',read,{passive:true});addEventListener('resize',read);read();
+  function frame(){
+    cur+=(target-cur)*.08;if(Math.abs(target-cur)<.0005)cur=target;
+    var d=iv(DS,cur),c=iv(CS,cur);
+    cam.setAttribute('transform','translate(0 '+(-c)+')');
+    drop.setAttribute('transform','translate(0 '+d+')');
+    var s=1+.6*sm((cur-.04)/.3);anc.setAttribute('transform','translate(312 346) scale('+s+') translate(-312 -346)');rope.setAttribute('y2',346+d-7*s);bob2.style.setProperty('--b',1-.95*sm(cur/.2));
+    sw.style.setProperty('--a',7-4.5*sm(cur/.18)-1*sm((cur-.4)/.4)-1.5*sm((cur-.85)/.15));
+    ttl.style.opacity=sub.style.opacity=1-cl(cur*10);
+    hint.style.opacity=1-cl(cur*20);
+    cap.style.opacity=cl((cur-.1)/.08)*(1-cl((cur-.38)/.06));
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>
